@@ -1,0 +1,29 @@
+{
+  "name": "tfl-notification-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "micro-dev",
+    "start": "micro",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beauallison/tfl-notification-server.git"
+  },
+  "author": "Beau Allison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beauallison/tfl-notification-server/issues"
+  },
+  "homepage": "https://github.com/beauallison/tfl-notification-server#readme",
+  "dependencies": {
+    "micro": "^9.0.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "micro-dev": "^2.1.1"
+  }
+}
