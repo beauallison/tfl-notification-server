@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+
+  api:
+      image: "node"
+      user: "node"
+      working_dir: /home/node/app
+      volumes:
+        - ../:/home/node/app
+      ports:
+          - "127.0.0.1:3000:3000"
+      command: "npm run dev"
+
+  redis:
+      image: redis
+      ports:
+        - "127.0.0.1:6379:6379"
+
+  db:
+      image: mongo:3.6
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=snail
+        - MONGO_INITDB_DATABASE=tokens
+      ports:
+        - "127.0.0.1:27017:27017"
+      volumes:
+        - ./create.js:/docker-entrypoint-initdb.d/create.js
+        

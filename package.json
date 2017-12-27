@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "micro-dev",
+    "docker": "docker-compose -f ./dev/docker-compose.yml up -d",
     "start": "micro",
     "test": "jest --forceExit"
   },
