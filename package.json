@@ -20,12 +20,15 @@
   },
   "homepage": "https://github.com/beauallison/tfl-notification-server#readme",
   "dependencies": {
+    "boom": "^7.1.1",
     "bull": "^3.3.7",
     "config": "^1.28.1",
     "expo-server-sdk": "^2.3.3",
     "got": "^8.0.1",
     "lodash": "^4.17.4",
-    "micro": "^9.0.2"
+    "micro": "^9.0.2",
+    "mongo-uri-builder": "^1.0.3",
+    "mongodb": "^3.0.1"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.1.0",

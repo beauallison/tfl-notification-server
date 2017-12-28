@@ -1,4 +1,17 @@
 {
   "API": "https://api.tfl.gov.uk",
-  "REDIS": "redis://127.0.0.1:6379"
+  "REDIS": "redis://127.0.0.1:6379",
+  "MONGO": {
+    "auth": {
+      "username": "admin",
+      "password": "snail",
+      "host": "localhost",
+      "port": 27017,
+      "database": "admin"
+    },
+    "tokens": {
+      "database": "tokens",
+      "collection": "users"
+    }
+  }
 }
