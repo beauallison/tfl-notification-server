@@ -5,6 +5,8 @@ services:
   api:
       image: "node"
       user: "node"
+      environment:
+      - NODE_ENV=docker
       working_dir: /home/node/app
       volumes:
         - ../:/home/node/app
@@ -14,15 +16,19 @@ services:
 
   redis:
       image: redis
+      expose:
+        - "6379"
       ports:
         - "127.0.0.1:6379:6379"
 
-  db:
+  mongodb:
       image: mongo:3.6
       environment:
         - MONGO_INITDB_ROOT_USERNAME=admin
         - MONGO_INITDB_ROOT_PASSWORD=snail
         - MONGO_INITDB_DATABASE=tokens
+      expose:
+        - "27017"
       ports:
         - "127.0.0.1:27017:27017"
       volumes:

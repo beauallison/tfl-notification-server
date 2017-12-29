@@ -1,0 +1,16 @@
+{
+  "REDIS": "redis://redis:6379",
+  "MONGO": {
+    "auth": {
+      "username": "admin",
+      "password": "snail",
+      "host": "mongodb",
+      "port": 27017,
+      "database": "admin"
+    },
+    "tokens": {
+      "database": "tokens",
+      "collection": "users"
+    }
+  }
+}

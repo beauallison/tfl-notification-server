@@ -1,13 +1,13 @@
-const collection = require('./');
+const Collection = require('./');
 
-describe('tokens', () => {
-  let tokens;
-
-  beforeEach(async () => { tokens = await collection(); });
+describe('users', () => {
+  let collection;
 
   describe('register', () => {
+    beforeAll(async () => { collection = await new Collection(); });
+
     it('should register a user', async () => {
-      const { result } = await tokens.register({
+      const { result } = await collection.register({
         token: 'ExpoPushToken[xxxxxxxxxxxxxxxxxxxxxx]',
         stations: ['LONDON'],
       });
@@ -17,9 +17,9 @@ describe('tokens', () => {
   });
 
   describe('getAll', () => {
-    it('should return all tokens', async () => {
-      const results = await tokens.getAll();
-      expect(results.length).toBeGreaterThan(1);
+    it('should return all users', async () => {
+      const results = await collection.getAll();
+      expect(results.length).toBeGreaterThan(0);
       results.forEach(item => expect(Object.keys(item)).toEqual(['token', 'stations']));
     });
   });

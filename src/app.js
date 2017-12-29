@@ -1,1 +1,3 @@
-module.exports = () => 'Notifications Registered';
+const register = require('./register');
+
+module.exports = register;
