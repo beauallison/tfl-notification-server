@@ -1,7 +1,10 @@
 {
-  "API": "https://api.tfl.gov.uk",
-  "REDIS": "redis://127.0.0.1:6379",
-  "MONGO": {
+  "jobs": {
+    "stationStatus": "* * * * *"
+  },
+  "api": "https://api.tfl.gov.uk",
+  "redis": "redis://127.0.0.1:6379",
+  "mongo": {
     "auth": {
       "username": "admin",
       "password": "snail",

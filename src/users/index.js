@@ -1,29 +1,30 @@
+const boom = require('boom');
 const Expo = require('expo-server-sdk');
-const { MONGO } = require('config');
+const { mongo } = require('config');
 const client = require('./client');
 
 module.exports = class Users {
   constructor() {
     return (async () => {
-      const Client = await client(MONGO.auth);
-      this.tokens = Client.db(MONGO.tokens.database);
+      const Client = await client(mongo.auth);
+      this.tokens = Client.db(mongo.tokens.database);
       return this;
     })();
   }
 
   register({ token, stations }) {
     if (!Expo.isExpoPushToken(token)) {
-      throw new Error('Invalid Expo token');
+      throw boom.badData('Invalid Expo token');
     }
 
     return this.tokens
-      .collection(MONGO.tokens.collection)
+      .collection(mongo.tokens.collection)
       .insertOne({ token, stations });
   }
 
   getAll() {
     return this.tokens
-      .collection(MONGO.tokens.collection)
+      .collection(mongo.tokens.collection)
       .find({})
       .toArray()
       .then(users => users

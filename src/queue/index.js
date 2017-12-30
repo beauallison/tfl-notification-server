@@ -1,36 +1,41 @@
 const _ = require('lodash');
 const Queue = require('bull');
+const cron = require('cronstrue');
 const Expo = require('expo-server-sdk');
-const { REDIS } = require('config');
+const logger = require('../logger');
+const { redis } = require('config');
 const getStatus = require('../getStatus');
 const { LINES } = require('../../constants');
 
-const TIMER = { cron: '* * * * *' };
+const CRON = '* * * * *';
+const TIMER = { repeat: { cron: CRON } };
 
 const expo = new Expo();
 const currentStation = _.cloneDeep(LINES);
 
-module.exports = () => ({
+module.exports = {
   stations: () => {
-    const queue = new Queue('stationsStatusQueue', REDIS);
+    logger.info('Stations Status - Creating queue');
+    const queue = new Queue('stationsStatusQueue', redis);
 
     queue.process(() =>
       Promise.all(_.map(currentStation, async ({ station }, ID) => {
+        logger.info(`${station} Status - Downloading`);
         const { status } = await getStatus(station);
+
+        logger.info(`${station} Status - ${status}`);
         currentStation[ID].status = status;
       })));
 
+    logger.info(`Stations Status - Job executing ${cron.toString(CRON).toLowerCase()}`);
     queue.add({}, TIMER);
     return queue;
   },
   notifications: () => {
-    const queue = new Queue('notificationsQueue', REDIS);
+    const queue = new Queue('notificationsQueue', redis);
 
     queue.process(async () => {
-      let clients = await Promise.resolve(true);
-
-      clients = clients.filter(({ token }) =>
-        !expo.isExpoPushToken(token));
+      const clients = await Promise.resolve(true);
 
       const messages = clients.map(({ token, stations }) =>
         stations.map(ID => ({
@@ -48,5 +53,5 @@ module.exports = () => ({
     queue.add({}, TIMER);
     return queue;
   },
-});
+};
 

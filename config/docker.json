@@ -1,6 +1,6 @@
 {
-  "REDIS": "redis://redis:6379",
-  "MONGO": {
+  "redis": "redis://redis:6379",
+  "mongo": {
     "auth": {
       "username": "admin",
       "password": "snail",
