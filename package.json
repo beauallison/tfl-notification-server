@@ -36,6 +36,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "jest": "^22.0.4",
-    "micro-dev": "^2.1.1"
+    "micro-dev": "^2.1.1",
+    "uuid": "^3.2.1"
   }
 }

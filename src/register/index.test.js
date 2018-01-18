@@ -1,3 +1,4 @@
+const uuid = require('uuid');
 const register = require('./');
 
 describe('register', () => {
@@ -5,7 +6,7 @@ describe('register', () => {
     const req = {
       method: 'POST',
       body: {
-        token: 'ExpoPushToken[xxxxxxxxxxxxxxxxxxxxxx]',
+        token: `ExpoPushToken[${uuid.v4()}]`,
         stations: ['LONDON'],
       },
     };

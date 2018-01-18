@@ -1,3 +1,4 @@
+const uuid = require('uuid');
 const Collection = require('./');
 
 describe('users', () => {
@@ -8,7 +9,7 @@ describe('users', () => {
 
     it('should register a user', async () => {
       const { result } = await collection.register({
-        token: 'ExpoPushToken[xxxxxxxxxxxxxxxxxxxxxx]',
+        token: `ExpoPushToken[${uuid.v4()}]`,
         stations: ['LONDON'],
       });
 
