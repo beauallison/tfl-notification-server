@@ -7,7 +7,7 @@
     "dev": "micro-dev",
     "docker": "docker-compose -f ./dev/docker-compose.yml up -d",
     "start": "micro",
-    "test": "jest --forceExit"
+    "test": "jest --coverage --forceExit"
   },
   "repository": {
     "type": "git",

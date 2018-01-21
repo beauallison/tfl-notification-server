@@ -3,18 +3,66 @@ const Collection = require('./');
 
 describe('users', () => {
   let collection;
+  const newToken = () => `ExpoPushToken[${uuid.v4()}]`;
+  const token = newToken();
+
+  beforeAll(async () => { collection = await new Collection(); });
 
   describe('register', () => {
-    beforeAll(async () => { collection = await new Collection(); });
-
     it('should register a user', async () => {
-      const { result } = await collection.register({
-        token: `ExpoPushToken[${uuid.v4()}]`,
+      const registered = await collection.register({
+        token,
         stations: ['LONDON'],
       });
 
-      expect(result).toEqual({ n: 1, ok: 1 });
+      expect(registered).toEqual({ n: 1, ok: 1 });
     });
+  });
+
+  describe('exists', () => {
+    it('should return id for exiting user', async () => {
+      const exists = await collection.exists(token);
+      expect(exists).toBeTruthy();
+    });
+
+    it('should return false on non-matching token', async () => {
+      const exists = await collection.exists(`ExpoPushToken[${uuid.v4()}]`);
+      expect(exists).toBeFalsy();
+    });
+  });
+
+  describe('unregister', () => {
+    it('should unregister a user', async () => {
+      const unregistered = await collection.unregister({ token });
+      expect(unregistered).toEqual({ n: 1, ok: 1 });
+    });
+  });
+
+  describe('manage', () => {
+    it('should route functions correctly', async () => {
+      const opts = { token: newToken(), stations: ['LONDON'] };
+
+      const actions = [
+        { action: 'register', ...opts },
+        { action: 'update', ...opts },
+        { action: 'unregister', token: opts.token },
+      ];
+
+      await actions.reduce(async (previous, { action, ...args }) => {
+        await previous;
+        const spy = jest.spyOn(collection, action);
+        await collection.manage(args);
+        expect(spy).toHaveBeenCalled();
+      }, Promise.resolve());
+    });
+
+    it('should throw an error on nonexistent token', async () =>
+      expect(collection.manage({ token: newToken() }))
+        .rejects.toThrow('Token not found'));
+
+    it('should throw an error on invalid token', async () =>
+      expect(collection.manage({ token: 12345 }))
+        .rejects.toThrow('Invalid Expo token'));
   });
 
   describe('getAll', () => {
