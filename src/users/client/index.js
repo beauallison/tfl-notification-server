@@ -7,10 +7,6 @@ module.exports = async (MONGO) => {
     const connectionString = mongoUriBuilder(MONGO);
     return await mongodb.MongoClient.connect(connectionString);
   } catch (err) {
-    if (err.message === 'Authentication failed.') {
-      throw boom.unauthorized();
-    } else {
-      throw boom.serverUnavailable();
-    }
+    throw err.message === 'Authentication failed.' ? boom.unauthorized() : boom.serverUnavailable();
   }
 };
