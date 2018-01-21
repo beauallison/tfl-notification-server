@@ -53,6 +53,7 @@ describe('users', () => {
         const spy = jest.spyOn(collection, action);
         await collection.manage(args);
         expect(spy).toHaveBeenCalled();
+        expect(spy).toBeCalledWith(args);
       }, Promise.resolve());
     });
 

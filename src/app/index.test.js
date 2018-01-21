@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const register = require('./');
+const app = require('./');
 
 describe('app', () => {
   it('should register a user', async () => {
@@ -11,7 +11,12 @@ describe('app', () => {
       },
     };
 
-    const result = await register(req, {});
-    expect(result).toBe('OK');
+    const response = await app(req, {});
+    expect(response).toBe('OK');
+  });
+
+  it('should return an error on invalid HTTP method', async () => {
+    const response = await app({ req: { method: 'GET' } });
+    expect(response).toEqual({ statusCode: 403, message: 'Forbidden' });
   });
 });
