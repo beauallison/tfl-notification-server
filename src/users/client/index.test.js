@@ -10,11 +10,11 @@ describe('tokens/client', () => {
 
   it('should throw an error on unavailable service', () => {
     const auth = { ...mongo.auth, password: 'wrong' };
-    expect(Client(auth)).rejects.toThrow('Unauthorized');
+    return expect(Client(auth)).rejects.toThrow('Unauthorized');
   });
 
   it('should throw an error on unavailable service', () => {
     const auth = { ...mongo.auth, port: mongo.auth.port += 1 };
-    expect(Client(auth)).rejects.toThrow('Service Unavailable');
+    return expect(Client(auth)).rejects.toThrow('Service Unavailable');
   });
 });
