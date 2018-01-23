@@ -1,6 +1,6 @@
-const queue = require('./queue');
+const queues = require('./queues');
 const app = require('./app');
 
-queue.stations();
+queues.stations();
 
 module.exports = app;
