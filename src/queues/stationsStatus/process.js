@@ -7,9 +7,10 @@ const currentStation = _.cloneDeep(LINES);
 
 module.exports = () =>
   Promise.all(_.map(currentStation, async ({ station }, ID) => {
-    logger.info(`${station} Status - Downloading`);
+    const Station = _.upperFirst(station);
+    logger.info(`Stations Status - ${Station} - Downloading status`);
     const { status } = await getStatus(station);
 
-    logger.info(`${station} Status - ${status}`);
+    logger.info(`Stations Status - ${Station} - ${status}`);
     currentStation[ID].status = status;
   }));
