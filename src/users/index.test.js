@@ -33,7 +33,13 @@ describe('users', () => {
 
   describe('unregister', () => {
     it('should unregister a user', async () => {
-      const unregistered = await collection.unregister({ token });
+      const opts = {
+        token: newToken(),
+        stations: ['LONDON'],
+      };
+
+      await collection.register(opts);
+      const unregistered = await collection.unregister(opts);
       expect(unregistered).toEqual({ n: 1, ok: 1 });
     });
   });

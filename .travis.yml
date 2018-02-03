@@ -1,0 +1,19 @@
+language: node_js
+node_js: "8"
+
+env:
+  - NODE_ENV=travis
+
+services:
+  - mongodb
+  - redis-server
+
+install: npm install && npm install coveralls
+
+before_script:
+  - mongo admin --eval 'db.createUser({user:"travis",pwd:"travis",roles:["readWrite"]});'
+  - mongo tokens --eval 'db.createCollection("users");'
+
+script: npm test
+
+after_success: coveralls < coverage/lcov.info
