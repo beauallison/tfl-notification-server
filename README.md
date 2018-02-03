@@ -1,5 +1,7 @@
 # TFL Notification Server
 
+![Build Status][badgeBuild] ![Coverage Status][badgeCov]
+
 This repo is a work in progress.
 
 This is a microservice for sending push notifications to users about Transport for London station updates. It works in conjunction with the [React Native TFL Notifications][react-native-repo] application for notification registration.
@@ -42,3 +44,6 @@ npm run docker
 [micro]: https://www.npmjs.com/package/micro
 [bull]: https://www.npmjs.com/package/bull
 [expo]: npmjs.com/package/expo-server-sdk
+
+[badgeBuild]: https://travis-ci.org/beauallison/tfl-notification-server.svg?branch=master
+[badgeCov]: https://coveralls.io/repos/github/beauallison/tfl-notification-server/badge.svg?branch=master
