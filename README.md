@@ -31,7 +31,7 @@ cd tfl-notification-server
 
 npm install
 
-npm run dev
+npm run docker
 ```
 
 <!-- Links -->
